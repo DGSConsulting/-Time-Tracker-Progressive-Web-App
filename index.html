@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracker</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVGltZSBUcmFja2VyIiwic2hvcnRfbmFtZSI6IlRpbWVyIiwiZGVzY3JpcHRpb24iOiJQcm9mZXNzaW9uYWwgdGltZSB0cmFja2luZyBhcHAiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJ0aGVtZV9jb2xvciI6IiMzNDY2ZjYiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzFmMmYzZiIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNakEwSWlCb1pXbG5hSFE5SWpJd05DSWdkbWxsZDBKdmVEMGlNQ0F3SURJME5DQXlOREVpUGp4amFYSmpiR1VnWTNnOUlqRXlNaUlnWTNrOUlqRXlNaUlnY2owaU5EY2lJR1pwYkd3OUlpTXpORFkyWmpZaUx6NDhkR1Y0ZENCNFBTSXhNakVpSUhrOUlqRTJNaUlnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJZ1ptbHNiRDBpYUhOc0tESTFNU3dnTkRFbExDQTJNQ1VwSWo1VUlHbHRaVHd2ZEdWNGRENDhMMk5wY21Oc1pUNGdkSHBsUEhOd1lXNGdZMnhoYzNNOUltbGpiaTFqYkc5amF5SWdkMmxrZEdnOUlqSTBJaUJvWldsbmFIUTlJakkwSWlCMmFXVjNRbTk0UFNJd0lEQWdNalEwSURJME5DSWdabWxzYkQwaWJtOXVaU0krUEM5emNHRnVQangwWlhoMElIZzlJakZNSWlCNVBTSTBNaUlnWm1sc2JEMGlZblJzWTJ3aUlHWnZiblF0Ym1GdFpUMGljSEp2Y0hCcGJuTWlJR1p2Ym5RdGMybDZaVDBpTVRjaUlHTnNZWE56UFNKbGJuSXRiSFV0ZW5zaWVrUlRJbVpwYkd3dFkzVnljbVZ1ZEVOdmJHOXlJWFZ1WlhKalpYSmphVzV6SWlCMGVYQmxQU0pzYVc1bGN5SStUSUJRSWtOT1JFSFVPU0k4TDNSbGVIUStQQzkwWlhoMFBqeDBaWGgwSUhnOUlqRk1JaUI1UFNJMk9TSWdabWxzYkQwaWFrMWhibWxzWVNJZ1ptOXVkQzF1WVcxbFBTSndjbTl3Y0dsdWN5SWdabTl1ZEMxemFYcGxQU0l4TnlJZ1kyeGhjM005SW1WeWNpMTZlUzE2Y3lJK1RVRlNSMGxPUEM5MFpYaDBQand2Wm1aclptZGtjbVl4YkdWaGFrbDBaVWxUUkU5U1dtTkRTekY1WW5WcGFFOVRkbVpoYzJWVE4wUmtSMjVhUlVORmFWWlFRMVJQWjBWUk9HRk5abk14WmtSbVZHSjJkRDA5UEM5elpXTTZhRzlqUW5WV09VTnVjQzlqWVVKaWFraG9SMlJMVTFaMGJXMUlVVU5pZGpCRE1EZEhZMGgxTWsxUFRGaHZTVzVyTUc1c1lrUnlOWFozWkRBPUJrcUc1YmNCclhQalpCNm9IZWxMZWo1dkdlNz0iLCJzaXplcyI6IjE5Mng5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3466f6;
+            --primary-dark: #2350e6;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-secondary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 100px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Timer Dashboard */
+        .timer-dashboard {
+            background: var(--bg-primary);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 1rem 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .start-stop-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+
+        .start-stop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .start-stop-btn.running {
+            background: var(--danger);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .project-selector {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: white;
+            font-size: 1rem;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        /* Project Management */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-color {
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+            margin-right: 1rem;
+        }
+
+        .project-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-client {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Forms */
+        .form-card {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 102, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Time Entries */
+        .time-entries {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .entry-header {
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+
+        .entry-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .entry-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .entry-info {
+            flex: 1;
+        }
+
+        .entry-project {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .entry-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .entry-duration {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+
+        /* Reports */
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-label {
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timer-display {
+                font-size: 2.5rem;
+            }
+
+            .timer-controls {
+                flex-direction: column;
+            }
+
+            .start-stop-btn {
+                padding: 1rem 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+
+        .status-indicator.show {
+            transform: translateX(0);
+        }
+
+        .status-indicator.success {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-indicator.error {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Color picker styles */
+        .color-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-option:hover,
+        .color-option.selected {
+            border-color: var(--text-primary);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span>⏱️</span>
+                    Time Tracker
+                </div>
+                <nav class="nav-tabs">
+                    <button class="tab-btn active" data-tab="timer">Timer</button>
+                    <button class="tab-btn" data-tab="projects">Projects</button>
+                    <button class="tab-btn" data-tab="entries">Entries</button>
+                    <button class="tab-btn" data-tab="reports">Reports</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Timer Tab -->
+            <div id="timer" class="tab-content active">
+                <div class="timer-dashboard">
+                    <div class="current-project" id="currentProject">No project selected</div>
+                    <div class="timer-display" id="timerDisplay">00:00:00</div>
+                    <div class="timer-controls">
+                        <select class="project-selector" id="projectSelector">
+                            <option value="">Select Project</option>
+                        </select>
+                        <button class="start-stop-btn" id="startStopBtn">Start Timer</button>
+                    </div>
+                    <div class="timer-info">
+                        <small>Press Space to start/stop • Use number keys for quick project selection</small>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Manual Time Entry</h3>
+                    <form id="manualEntryForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Project</label>
+                                <select class="form-select" id="manualProject" required>
+                                    <option value="">Select Project</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-input" id="manualDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Start Time</label>
+                                <input type="time" class="form-input" id="manualStartTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">End Time</label>
+                                <input type="time" class="form-input" id="manualEndTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description (Optional)</label>
+                            <textarea class="form-textarea" id="manualDescription" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add Entry</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Projects Tab -->
+            <div id="projects" class="tab-content">
+                <div class="form-card">
+                    <h3>Add New Project</h3>
+                    <form id="projectForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Project Name</label>
+                                <input type="text" class="form-input" id="projectName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Client (Optional)</label>
+                                <input type="text" class="form-input" id="projectClient">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Hourly Rate</label>
+                                <input type="number" class="form-input" id="projectRate" min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Color</label>
+                                <div class="color-options" id="colorOptions">
+                                    <div class="color-option selected" data-color="#3466f6" style="background: #3466f6"></div>
+                                    <div class="color-option" data-color="#10b981" style="background: #10b981"></div>
+                                    <div class="color-option" data-color="#f59e0b" style="background: #f59e0b"></div>
+                                    <div class="color-option" data-color="#ef4444" style="background: #ef4444"></div>
+                                    <div class="color-option" data-color="#8b5cf6" style="background: #8b5cf6"></div>
+                                    <div class="color-option" data-color="#06b6d4" style="background: #06b6d4"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Add Project</button>
+                    </form>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+
+            <!-- Entries Tab -->
+            <div id="entries" class="tab-content">
+                <div class="time-entries">
+                    <div class="entry-header">
+                        Recent Time Entries
+                    </div>
+                    <div id="entriesList"></div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="reports" class="tab-content">
+                <div class="report-header">
+                    <h2>Time Reports</h2>
+                    <div class="time-filter">
+                        <button class="filter-btn active" data-filter="today">Today</button>
+                        <button class="filter-btn" data-filter="week">This Week</button>
+                        <button class="filter-btn" data-filter="month">This Month</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-value" id="totalHours">0.0</div>
+                        <div class="stat-card-label">Total Hours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value" id="totalEarnings">$0</div>
+                        <div class="stat-card-label">Total Earnings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value" id="activeProjects">0</div>
+                        <div class="stat-card-label">Active Projects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value" id="avgHoursPerDay">0.0</div>
+                        <div class="stat-card-label">Avg Hours/Day</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="timeChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="status-indicator" id="statusIndicator"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        class TimeTracker {
+            constructor() {
+                this.currentTimer = null;
+                this.startTime = null;
+                this.isRunning = false;
+                this.currentProject = null;
+                this.projects = [];
+                this.timeEntries = [];
+                this.selectedColor = '#3466f6';
+                
+                this.initializeDB();
+                this.initializeUI();
+                this.bindEvents();
+                this.loadData();
+                this.updateDisplay();
+            }
+
+            async initializeDB() {
+                return new Promise((resolve) => {
+                    const request = indexedDB.open('TimeTrackerDB', 1);
+                    
+                    request.onerror = () => {
+                        console.error('Database failed to open');
+                        resolve();
+                    };
+                    
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve();
+                    };
+                    
+                    request.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        
+                        if (!db.objectStoreNames.contains('projects')) {
+                            const projectStore = db.createObjectStore('projects', { keyPath: 'id' });
+                            projectStore.createIndex('name', 'name', { unique: false });
+                        }
+                        
+                        if (!db.objectStoreNames.contains('timeEntries')) {
+                            const entryStore = db.createObjectStore('timeEntries', { keyPath: 'id' });
+                            entryStore.createIndex('projectId', 'projectId', { unique: false });
+                            entryStore.createIndex('date', 'date', { unique: false });
+                        }
+                    };
+                });
+            }
+
+            initializeUI() {
+                // Set current date for manual entry
+                document.getElementById('manualDate').valueAsDate = new Date();
+                
+                // Initialize chart
+                this.initChart();
+            }
+
+            bindEvents() {
+                // Tab switching
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.switchTab(btn.dataset.tab));
+                });
+
+                // Timer controls
+                document.getElementById('startStopBtn').addEventListener('click', () => this.toggleTimer());
+                document.getElementById('projectSelector').addEventListener('change', (e) => {
+                    this.currentProject = e.target.value;
+                    this.updateCurrentProject();
+                });
+
+                // Project form
+                document.getElementById('projectForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addProject();
+                });
+
+                // Manual entry form
+                document.getElementById('manualEntryForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addManualEntry();
+                });
+
+                // Color selection
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', () => this.selectColor(option));
+                });
+
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.setFilter(btn));
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                    
+                    if (e.code === 'Space') {
+                        e.preventDefault();
+                        this.toggleTimer();
+                    } else if (e.code.startsWith('Digit')) {
+                        const index = parseInt(e.code.replace('Digit', '')) - 1;
+                        this.selectProjectByIndex(index);
+                    }
+                });
+
+                // Update timer display every second
+                setInterval(() => this.updateDisplay(), 1000);
+            }
+
+            async loadData() {
+                if (!this.db) return;
+
+                try {
+                    this.projects = await this.getFromDB('projects');
+                    this.timeEntries = await this.getFromDB('timeEntries');
+                    this.updateProjectSelectors();
+                    this.renderProjects();
+                    this.renderEntries();
+                    this.updateReports();
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                }
+            }
+
+            getFromDB(storeName) {
+                return new Promise((resolve) => {
+                    const transaction = this.db.transaction([storeName], 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => resolve([]);
+                });
+            }
+
+            saveToDB(storeName, data) {
+                return new Promise((resolve) => {
+                    const transaction = this.db.transaction([storeName], 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.put(data);
+                    
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => resolve();
+                });
+            }
+
+            deleteFromDB(storeName, id) {
+                return new Promise((resolve) => {
+                    const transaction = this.db.transaction([storeName], 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.delete(id);
+                    
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => resolve();
+                });
+            }
+
+            switchTab(tabName) {
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tabName);
+                });
+
+                // Update active tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.toggle('active', content.id === tabName);
+                });
+
+                // Refresh data for specific tabs
+                if (tabName === 'reports') {
+                    this.updateReports();
+                } else if (tabName === 'entries') {
+                    this.renderEntries();
+                }
+            }
+
+            toggleTimer() {
+                if (!this.currentProject) {
+                    this.showNotification('Please select a project first', 'error');
+                    return;
+                }
+
+                if (this.isRunning) {
+                    this.stopTimer();
+                } else {
+                    this.startTimer();
+                }
+            }
+
+            startTimer() {
+                this.isRunning = true;
+                this.startTime = new Date();
+                
+                const btn = document.getElementById('startStopBtn');
+                btn.textContent = 'Stop Timer';
+                btn.classList.add('running');
+                
+                this.showNotification('Timer started', 'success');
+            }
+
+            stopTimer() {
+                if (!this.isRunning || !this.startTime) return;
+                
+                this.isRunning = false;
+                const endTime = new Date();
+                const duration = Math.floor((endTime - this.startTime) / 1000);
+                
+                // Create time entry
+                const entry = {
+                    id: Date.now(),
+                    projectId: this.currentProject,
+                    startTime: this.startTime,
+                    endTime: endTime,
+                    duration: duration,
+                    date: this.startTime.toISOString().split('T')[0],
+                    description: ''
+                };
+
+                this.timeEntries.unshift(entry);
+                this.saveToDB('timeEntries', entry);
+                
+                // Reset timer
+                this.startTime = null;
+                const btn = document.getElementById('startStopBtn');
+                btn.textContent = 'Start Timer';
+                btn.classList.remove('running');
+                
+                this.updateDisplay();
+                this.renderEntries();
+                this.updateReports();
+                
+                const project = this.projects.find(p => p.id === this.currentProject);
+                const hours = (duration / 3600).toFixed(1);
+                this.showNotification(`${hours}h logged to ${project?.name}`, 'success');
+            }
+
+            updateDisplay() {
+                const display = document.getElementById('timerDisplay');
+                let seconds = 0;
+
+                if (this.isRunning && this.startTime) {
+                    seconds = Math.floor((new Date() - this.startTime) / 1000);
+                }
+
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+
+                display.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            updateCurrentProject() {
+                const display = document.getElementById('currentProject');
+                if (this.currentProject) {
+                    const project = this.projects.find(p => p.id === this.currentProject);
+                    display.textContent = project ? project.name : 'Unknown Project';
+                } else {
+                    display.textContent = 'No project selected';
+                }
+            }
+
+            selectProjectByIndex(index) {
+                if (index < this.projects.length) {
+                    this.currentProject = this.projects[index].id;
+                    document.getElementById('projectSelector').value = this.currentProject;
+                    this.updateCurrentProject();
+                }
+            }
+
+            async addProject() {
+                const name = document.getElementById('projectName').value;
+                const client = document.getElementById('projectClient').value;
+                const rate = parseFloat(document.getElementById('projectRate').value) || 0;
+
+                const project = {
+                    id: Date.now().toString(),
+                    name,
+                    client,
+                    rate,
+                    color: this.selectedColor,
+                    active: true,
+                    createdAt: new Date()
+                };
+
+                this.projects.push(project);
+                await this.saveToDB('projects', project);
+                
+                this.updateProjectSelectors();
+                this.renderProjects();
+                this.updateReports();
+                
+                // Reset form
+                document.getElementById('projectForm').reset();
+                this.selectColor(document.querySelector('.color-option[data-color="#3466f6"]'));
+                
+                this.showNotification('Project added successfully', 'success');
+            }
+
+            async addManualEntry() {
+                const projectId = document.getElementById('manualProject').value;
+                const date = document.getElementById('manualDate').value;
+                const startTime = document.getElementById('manualStartTime').value;
+                const endTime = document.getElementById('manualEndTime').value;
+                const description = document.getElementById('manualDescription').value;
+
+                if (!projectId || !date || !startTime || !endTime) {
+                    this.showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+
+                const startDateTime = new Date(`${date}T${startTime}`);
+                const endDateTime = new Date(`${date}T${endTime}`);
+                
+                if (endDateTime <= startDateTime) {
+                    this.showNotification('End time must be after start time', 'error');
+                    return;
+                }
+
+                const duration = Math.floor((endDateTime - startDateTime) / 1000);
+
+                const entry = {
+                    id: Date.now(),
+                    projectId,
+                    startTime: startDateTime,
+                    endTime: endDateTime,
+                    duration,
+                    date,
+                    description,
+                    manual: true
+                };
+
+                this.timeEntries.unshift(entry);
+                await this.saveToDB('timeEntries', entry);
+                
+                this.renderEntries();
+                this.updateReports();
+                
+                // Reset form
+                document.getElementById('manualEntryForm').reset();
+                document.getElementById('manualDate').valueAsDate = new Date();
+                
+                this.showNotification('Manual entry added successfully', 'success');
+            }
+
+            updateProjectSelectors() {
+                const selectors = ['projectSelector', 'manualProject'];
+                
+                selectors.forEach(selectorId => {
+                    const selector = document.getElementById(selectorId);
+                    selector.innerHTML = '<option value="">Select Project</option>';
+                    
+                    this.projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.id;
+                        option.textContent = project.name;
+                        selector.appendChild(option);
+                    });
+                });
+            }
+
+            renderProjects() {
+                const grid = document.getElementById('projectsGrid');
+                grid.innerHTML = '';
+
+                this.projects.forEach(project => {
+                    const projectEntries = this.timeEntries.filter(entry => entry.projectId === project.id);
+                    const totalHours = projectEntries.reduce((sum, entry) => sum + entry.duration, 0) / 3600;
+                    const totalEarnings = totalHours * project.rate;
+
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <div class="project-header">
+                            <div style="display: flex; align-items: center;">
+                                <div class="project-color" style="background: ${project.color}"></div>
+                                <div>
+                                    <div class="project-name">${project.name}</div>
+                                    ${project.client ? `<div class="project-client">${project.client}</div>` : ''}
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-sm btn-secondary" onclick="timeTracker.editProject('${project.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="timeTracker.deleteProject('${project.id}')">Delete</button>
+                            </div>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <div class="stat-value">${totalHours.toFixed(1)}h</div>
+                                <div class="stat-label">Total Hours</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${project.rate}</div>
+                                <div class="stat-label">Hourly Rate</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${totalEarnings.toFixed(0)}</div>
+                                <div class="stat-label">Total Earned</div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            async deleteProject(projectId) {
+                if (!confirm('Are you sure you want to delete this project? This will also delete all associated time entries.')) {
+                    return;
+                }
+
+                // Remove project
+                this.projects = this.projects.filter(p => p.id !== projectId);
+                await this.deleteFromDB('projects', projectId);
+
+                // Remove associated entries
+                const entriesToDelete = this.timeEntries.filter(entry => entry.projectId === projectId);
+                for (const entry of entriesToDelete) {
+                    await this.deleteFromDB('timeEntries', entry.id);
+                }
+                this.timeEntries = this.timeEntries.filter(entry => entry.projectId !== projectId);
+
+                this.updateProjectSelectors();
+                this.renderProjects();
+                this.renderEntries();
+                this.updateReports();
+                
+                this.showNotification('Project deleted successfully', 'success');
+            }
+
+            renderEntries() {
+                const list = document.getElementById('entriesList');
+                list.innerHTML = '';
+
+                if (this.timeEntries.length === 0) {
+                    list.innerHTML = '<div class="entry-item">No time entries yet</div>';
+                    return;
+                }
+
+                // Sort entries by date (newest first)
+                const sortedEntries = [...this.timeEntries].sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+
+                sortedEntries.forEach(entry => {
+                    const project = this.projects.find(p => p.id === entry.projectId);
+                    const duration = this.formatDuration(entry.duration);
+                    const startTime = new Date(entry.startTime).toLocaleString();
+
+                    const item = document.createElement('div');
+                    item.className = 'entry-item';
+                    item.innerHTML = `
+                        <div class="entry-info">
+                            <div class="entry-project" style="color: ${project?.color || '#666'}">
+                                ${project?.name || 'Unknown Project'}
+                            </div>
+                            <div class="entry-time">
+                                ${startTime}${entry.description ? ` • ${entry.description}` : ''}
+                                ${entry.manual ? ' • Manual Entry' : ''}
+                            </div>
+                        </div>
+                        <div class="entry-duration">${duration}</div>
+                        <button class="btn btn-sm btn-danger" onclick="timeTracker.deleteEntry(${entry.id})">Delete</button>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            async deleteEntry(entryId) {
+                if (!confirm('Are you sure you want to delete this time entry?')) {
+                    return;
+                }
+
+                this.timeEntries = this.timeEntries.filter(entry => entry.id !== entryId);
+                await this.deleteFromDB('timeEntries', entryId);
+                
+                this.renderEntries();
+                this.updateReports();
+                
+                this.showNotification('Entry deleted successfully', 'success');
+            }
+
+            setFilter(btn) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.currentFilter = btn.dataset.filter;
+                this.updateReports();
+            }
+
+            getFilteredEntries() {
+                const now = new Date();
+                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                
+                let startDate;
+                switch (this.currentFilter || 'today') {
+                    case 'today':
+                        startDate = today;
+                        break;
+                    case 'week':
+                        startDate = new Date(today);
+                        startDate.setDate(startDate.getDate() - startDate.getDay());
+                        break;
+                    case 'month':
+                        startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                        break;
+                    default:
+                        startDate = today;
+                }
+
+                return this.timeEntries.filter(entry => {
+                    const entryDate = new Date(entry.startTime);
+                    return entryDate >= startDate;
+                });
+            }
+
+            updateReports() {
+                const filteredEntries = this.getFilteredEntries();
+                
+                // Calculate stats
+                const totalSeconds = filteredEntries.reduce((sum, entry) => sum + entry.duration, 0);
+                const totalHours = totalSeconds / 3600;
+                
+                const totalEarnings = filteredEntries.reduce((sum, entry) => {
+                    const project = this.projects.find(p => p.id === entry.projectId);
+                    return sum + (entry.duration / 3600) * (project?.rate || 0);
+                }, 0);
+
+                const activeProjects = new Set(filteredEntries.map(entry => entry.projectId)).size;
+                
+                const days = this.getDaysInPeriod();
+                const avgHoursPerDay = days > 0 ? totalHours / days : 0;
+
+                // Update stat cards
+                document.getElementById('totalHours').textContent = totalHours.toFixed(1);
+                document.getElementById('totalEarnings').textContent = `${totalEarnings.toFixed(0)}`;
+                document.getElementById('activeProjects').textContent = activeProjects;
+                document.getElementById('avgHoursPerDay').textContent = avgHoursPerDay.toFixed(1);
+
+                // Update chart
+                this.updateChart(filteredEntries);
+            }
+
+            getDaysInPeriod() {
+                const filter = this.currentFilter || 'today';
+                switch (filter) {
+                    case 'today': return 1;
+                    case 'week': return 7;
+                    case 'month': return new Date().getDate();
+                    default: return 1;
+                }
+            }
+
+            initChart() {
+                const ctx = document.getElementById('timeChart').getContext('2d');
+                this.chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            data: [],
+                            backgroundColor: []
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Time Distribution by Project'
+                            }
+                        }
+                    }
+                });
+            }
+
+            updateChart(entries) {
+                const projectTimes = {};
+                
+                entries.forEach(entry => {
+                    const project = this.projects.find(p => p.id === entry.projectId);
+                    const projectName = project?.name || 'Unknown Project';
+                    const projectColor = project?.color || '#666';
+                    
+                    if (!projectTimes[projectName]) {
+                        projectTimes[projectName] = {
+                            time: 0,
+                            color: projectColor
+                        };
+                    }
+                    projectTimes[projectName].time += entry.duration / 3600;
+                });
+
+                const labels = Object.keys(projectTimes);
+                const data = labels.map(label => projectTimes[label].time);
+                const colors = labels.map(label => projectTimes[label].color);
+
+                this.chart.data.labels = labels;
+                this.chart.data.datasets[0].data = data;
+                this.chart.data.datasets[0].backgroundColor = colors;
+                this.chart.update();
+            }
+
+            selectColor(option) {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                this.selectedColor = option.dataset.color;
+            }
+
+            formatDuration(seconds) {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                return `${hours}h ${minutes}m`;
+            }
+
+            showNotification(message, type = 'success') {
+                const indicator = document.getElementById('statusIndicator');
+                indicator.textContent = message;
+                indicator.className = `status-indicator ${type} show`;
+                
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Initialize the app
+        let timeTracker;
+        document.addEventListener('DOMContentLoaded', () => {
+            timeTracker = new TimeTracker();
+        });
+
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,Y29uc3QgQ0FDSEVfTkFNRSA9ICd0aW1lLXRyYWNrZXItdjEnOwpjb25zdCB1cmxzVG9DYWNoZSA9IFsnLyddOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpCiAgICAgIC50aGVuKGNhY2hlID0+IGNhY2hlLmFkZEFsbCh1cmxzVG9DYWNoZSkpCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpCiAgICAgIC50aGVuKHJlc3BvbnNlID0+IHsKICAgICAgICByZXR1cm4gcmVzcG9uc2UgfHwgZmV0Y2goZXZlbnQucmVxdWVzdCk7CiAgICAgIH0pCiAgKTsKfSk7')
+                .catch(err => console.log('Service worker registration failed'));
+        }
+    </script>
+</body>
+</html>
